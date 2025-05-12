@@ -1,0 +1,12 @@
+D:\NNTU\ШППО\LR3\src\main\java\com\example\quiz\model\HintDecorator.java
+D:\NNTU\ШППО\LR3\src\main\java\com\example\quiz\command\TestCommand.java
+D:\NNTU\ШППО\LR3\src\main\java\com\example\quiz\model\Question.java
+D:\NNTU\ШППО\LR3\src\main\java\com\example\quiz\iterator\QuestionIterator.java
+D:\NNTU\ШППО\LR3\src\main\java\com\example\quiz\server\QuizServer.java
+D:\NNTU\ШППО\LR3\src\main\java\com\example\quiz\service\TestManager.java
+D:\NNTU\ШППО\LR3\src\main\java\com\example\quiz\QuizApplication.java
+D:\NNTU\ШППО\LR3\src\main\java\com\example\quiz\aop\LoggingAspect.java
+D:\NNTU\ШППО\LR3\src\main\java\com\example\quiz\model\MultiChoiceQuestion.java
+D:\NNTU\ШППО\LR3\src\main\java\com\example\quiz\factory\QuestionFactory.java
+D:\NNTU\ШППО\LR3\src\main\java\com\example\quiz\command\StartTestCommand.java
+D:\NNTU\ШППО\LR3\src\main\java\com\example\quiz\model\TextQuestion.java
