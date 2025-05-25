@@ -1,11 +1,12 @@
-C:\Users\Axiliyz\Desktop\Lirili Larila\src\main\java\com\example\quiz\model\MultiChoiceQuestion.java
-C:\Users\Axiliyz\Desktop\Lirili Larila\src\main\java\com\example\quiz\command\TestCommand.java
-C:\Users\Axiliyz\Desktop\Lirili Larila\src\main\java\com\example\quiz\factory\QuestionFactory.java
-C:\Users\Axiliyz\Desktop\Lirili Larila\src\main\java\com\example\quiz\aop\LoggingAspect.java
-C:\Users\Axiliyz\Desktop\Lirili Larila\src\main\java\com\example\quiz\service\TestManager.java
-C:\Users\Axiliyz\Desktop\Lirili Larila\src\main\java\com\example\quiz\command\StartTestCommand.java
-C:\Users\Axiliyz\Desktop\Lirili Larila\src\main\java\com\example\quiz\iterator\QuestionIterator.java
-C:\Users\Axiliyz\Desktop\Lirili Larila\src\main\java\com\example\quiz\model\TextQuestion.java
-C:\Users\Axiliyz\Desktop\Lirili Larila\src\main\java\com\example\quiz\model\Question.java
-C:\Users\Axiliyz\Desktop\Lirili Larila\src\main\java\com\example\quiz\QuizApplication.java
-C:\Users\Axiliyz\Desktop\Lirili Larila\src\main\java\com\example\quiz\model\HintDecorator.java
+C:\Users\Axiliyz\Desktop\LR2\src\main\java\Question.java
+C:\Users\Axiliyz\Desktop\LR2\src\main\java\AppConfig.java
+C:\Users\Axiliyz\Desktop\LR2\src\main\java\HintDecorator.java
+C:\Users\Axiliyz\Desktop\LR2\src\main\java\TestCommand.java
+C:\Users\Axiliyz\Desktop\LR2\src\main\java\QuizApplication.java
+C:\Users\Axiliyz\Desktop\LR2\src\main\java\TextQuestion.java
+C:\Users\Axiliyz\Desktop\LR2\src\main\java\LoggingAspect.java
+C:\Users\Axiliyz\Desktop\LR2\src\main\java\QuestionIterator.java
+C:\Users\Axiliyz\Desktop\LR2\src\main\java\TestManager.java
+C:\Users\Axiliyz\Desktop\LR2\src\main\java\MultiChoiceQuestion.java
+C:\Users\Axiliyz\Desktop\LR2\src\main\java\QuestionFactory.java
+C:\Users\Axiliyz\Desktop\LR2\src\main\java\StartTestCommand.java
