@@ -1,12 +1,15 @@
-C:\Users\Axiliyz\Desktop\LR2\src\main\java\Question.java
-C:\Users\Axiliyz\Desktop\LR2\src\main\java\AppConfig.java
-C:\Users\Axiliyz\Desktop\LR2\src\main\java\HintDecorator.java
-C:\Users\Axiliyz\Desktop\LR2\src\main\java\TestCommand.java
-C:\Users\Axiliyz\Desktop\LR2\src\main\java\QuizApplication.java
-C:\Users\Axiliyz\Desktop\LR2\src\main\java\TextQuestion.java
-C:\Users\Axiliyz\Desktop\LR2\src\main\java\LoggingAspect.java
-C:\Users\Axiliyz\Desktop\LR2\src\main\java\QuestionIterator.java
-C:\Users\Axiliyz\Desktop\LR2\src\main\java\TestManager.java
-C:\Users\Axiliyz\Desktop\LR2\src\main\java\MultiChoiceQuestion.java
-C:\Users\Axiliyz\Desktop\LR2\src\main\java\QuestionFactory.java
-C:\Users\Axiliyz\Desktop\LR2\src\main\java\StartTestCommand.java
+C:\Users\Axiliyz\Desktop\SDP-main — копия\LR2\src\main\java\quiz\Question.java
+C:\Users\Axiliyz\Desktop\SDP-main — копия\LR2\src\main\java\quiz\QuestionIterator.java
+C:\Users\Axiliyz\Desktop\SDP-main — копия\LR2\src\main\java\quiz\DefaultQuestionFactory.java
+C:\Users\Axiliyz\Desktop\SDP-main — копия\LR2\src\main\java\quiz\QuestionFactory.java
+C:\Users\Axiliyz\Desktop\SDP-main — копия\LR2\src\main\java\quiz\DefaultTestManager.java
+C:\Users\Axiliyz\Desktop\SDP-main — копия\LR2\src\main\java\quiz\AppConfig.java
+C:\Users\Axiliyz\Desktop\SDP-main — копия\LR2\src\main\java\quiz\LoggingAspect.java
+C:\Users\Axiliyz\Desktop\SDP-main — копия\LR2\src\main\java\quiz\TestCommand.java
+C:\Users\Axiliyz\Desktop\SDP-main — копия\LR2\src\main\java\quiz\QuizApplication.java
+C:\Users\Axiliyz\Desktop\SDP-main — копия\LR2\src\main\java\quiz\MultiChoiceQuestion.java
+C:\Users\Axiliyz\Desktop\SDP-main — копия\LR2\src\main\java\quiz\AlternativeTestManager.java
+C:\Users\Axiliyz\Desktop\SDP-main — копия\LR2\src\main\java\quiz\HintDecorator.java
+C:\Users\Axiliyz\Desktop\SDP-main — копия\LR2\src\main\java\quiz\TextQuestion.java
+C:\Users\Axiliyz\Desktop\SDP-main — копия\LR2\src\main\java\quiz\StartTestCommand.java
+C:\Users\Axiliyz\Desktop\SDP-main — копия\LR2\src\main\java\quiz\TestManager.java

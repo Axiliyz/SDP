@@ -6,13 +6,11 @@ import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
-import java.util.concurrent.Semaphore;
 
 @Component
 public class QuizServer {
     private final TestManager manager;
     private final QuestionFactory factory;
-    private final Semaphore sem = new Semaphore(10);
 
     public QuizServer(TestManager manager, QuestionFactory factory) {
         this.manager = manager;
@@ -34,24 +32,32 @@ public class QuizServer {
                 InputStream input = sock.getInputStream();
                 OutputStream output = sock.getOutputStream()
         ) {
-            if (!sem.tryAcquire()) {
-                writeLine(output, "Server busy. Try later.");
-                sock.close();
-                return;
-            }
-
             writeMenu(output);
 
             String choice;
             while ((choice = readLine(input)) != null) {
                 switch (choice.trim()) {
                     case "1":
-                        writeLine(output, "Enter question:");
-                        String questionText = readLine(input);
-                        writeLine(output, "Enter answer:");
-                        String answer = readLine(input);
-                        manager.addQuestion(factory.createTextQuestion(questionText, answer));
-                        writeLine(output, "Added");
+                        try {
+                            manager.writeLock();
+                            try {
+                                writeLine(output, "Enter question:");
+                                String questionText = readLine(input);
+                                writeLine(output, "Enter answer:");
+                                String answer = readLine(input);
+                                if (questionText != null && answer != null) {
+                                    manager.addQuestion(factory.createTextQuestion(questionText, answer));
+                                    writeLine(output, "Added");
+                                } else {
+                                    writeLine(output, "Invalid input for question or answer.");
+                                }
+                            } finally {
+                                manager.writeUnlock();
+                            }
+                        } catch (InterruptedException e) {
+                            Thread.currentThread().interrupt();
+                            writeLine(output, "Operation was interrupted.");
+                        }
                         break;
 
                     case "2":
@@ -68,17 +74,17 @@ public class QuizServer {
                     default:
                         writeLine(output, "Invalid choice");
                 }
-
                 writeMenu(output);
             }
-
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("IOException in client handler: " + e.getMessage());
         } finally {
-            sem.release();
             try {
-                sock.close();
-            } catch (IOException ignored) {}
+                if (sock != null && !sock.isClosed()) {
+                    sock.close();
+                }
+            } catch (IOException ignored) {
+            }
         }
     }
 
@@ -88,8 +94,6 @@ public class QuizServer {
         writeLine(output, "2. Start Test");
         writeLine(output, "3. Exit");
     }
-
-    // Вспомогательные методы
 
     private String readLine(InputStream input) throws IOException {
         ByteArrayOutputStream buffer = new ByteArrayOutputStream();
@@ -106,7 +110,6 @@ public class QuizServer {
         output.flush();
     }
 
-    // Обёртки для совместимости с TestManager
     private BufferedReader wrapReader(InputStream input) {
         return new BufferedReader(new InputStreamReader(input, StandardCharsets.UTF_8));
     }

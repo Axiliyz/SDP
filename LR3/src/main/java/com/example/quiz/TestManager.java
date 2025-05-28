@@ -10,37 +10,78 @@ import java.util.List;
 @Service
 public class TestManager {
     private final List<Question> questions = new ArrayList<>();
-    private final CustomReadWriteLock rw = new CustomReadWriteLock();
+    private final CustomReadWriteLock rwLock = new CustomReadWriteLock();
+
+    public void writeLock() throws InterruptedException {
+        rwLock.writeLock();
+    }
+
+    public void writeUnlock() {
+        rwLock.writeUnlock();
+    }
+
+    public void readLock() throws InterruptedException {
+        rwLock.readLock();
+    }
+
+    public void readUnlock() throws InterruptedException {
+        rwLock.readUnlock();
+    }
 
     public void addQuestion(Question q) {
-        rw.writeLock();
-        try { questions.add(q); }
-        finally { rw.writeUnlock(); }
+        questions.add(q);
     }
 
     public List<Question> getQuestions() {
-        rw.readLock();
-        try { return new ArrayList<>(questions); }
-        finally { rw.readUnlock(); }
+        try {
+            readLock();
+            try {
+                return new ArrayList<>(questions);
+            } finally {
+                readUnlock();
+            }
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            System.err.println("Get questions operation was interrupted.");
+            return new ArrayList<>();
+        }
     }
 
     public void startTest(BufferedReader in, PrintWriter out) throws IOException {
-        if (questions.isEmpty()) {
-            out.println("Test is empty");
-            return;
-        }
-        int score = 0;
-        for (Question q : questions) {
-            q.ask(out);
-            String ans = in.readLine();
-            if (ans == null) return;
-            if (q.checkAnswer(ans)) {
-                out.println("Right!");
-                score++;
-            } else {
-                out.println("Wrong!");
+        try {
+            readLock();
+            try {
+                if (questions.isEmpty()) {
+                    out.println("Test is empty");
+                    return;
+                }
+                int score = 0;
+                List<Question> currentQuestions = new ArrayList<>(questions);
+
+                for (Question q : currentQuestions) {
+                    q.ask(out);
+                    String ans = in.readLine();
+                    if (ans == null) {
+                        out.println("Input stream ended unexpectedly.");
+                        return;
+                    }
+                    if (q.checkAnswer(ans)) {
+                        out.println("Right!");
+                        score++;
+                    } else {
+                        out.println("Wrong!");
+                    }
+                }
+                out.printf("Result: %d/%d%n", score, currentQuestions.size());
+            } finally {
+                readUnlock();
+            }
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            System.err.println("Start test operation was interrupted.");
+            if (out != null) {
+                out.println("The test was interrupted due to an internal error. Please try again.");
             }
         }
-        out.printf("Result: %d/%d%n", score, questions.size());
     }
 }

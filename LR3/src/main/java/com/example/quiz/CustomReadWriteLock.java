@@ -1,60 +1,41 @@
 package com.example.quiz;
 
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
+import java.util.concurrent.Semaphore;
 
 public class CustomReadWriteLock {
-    private final Lock writeLock = new ReentrantLock();
-    private final Lock readLock = new ReentrantLock();
-    private final AtomicInteger readers = new AtomicInteger(0);
-    private final AtomicInteger writers = new AtomicInteger(0);
-    private final AtomicInteger waitingWriters = new AtomicInteger(0);
+    private final Semaphore readSemaphore = new Semaphore(1);
+    private final Semaphore writeSemaphore = new Semaphore(1);
+    private int readers = 0;
 
-    public void readLock() {
-        readLock.lock();
+    public void readLock() throws InterruptedException {
+        readSemaphore.acquire();
         try {
-            while (writers.get() > 0 || waitingWriters.get() > 0) {
-                readLock.unlock();
-                Thread.yield();
-                readLock.lock();
+            if (readers == 0) {
+                writeSemaphore.acquire();
             }
-            readers.incrementAndGet();
+            readers++;
         } finally {
-            readLock.unlock();
+            readSemaphore.release();
         }
     }
 
-    public void readUnlock() {
-        readLock.lock();
+    public void readUnlock() throws InterruptedException {
+        readSemaphore.acquire();
         try {
-            readers.decrementAndGet();
+            readers--;
+            if (readers == 0) {
+                writeSemaphore.release();
+            }
         } finally {
-            readLock.unlock();
+            readSemaphore.release();
         }
     }
 
-    public void writeLock() {
-        waitingWriters.incrementAndGet();
-        writeLock.lock();
-        try {
-            while (readers.get() > 0 || writers.get() > 0) {
-                writeLock.unlock();
-                Thread.yield();
-                writeLock.lock();
-            }
-            writers.incrementAndGet();
-        } finally {
-            waitingWriters.decrementAndGet();
-        }
+    public void writeLock() throws InterruptedException {
+        writeSemaphore.acquire();
     }
 
     public void writeUnlock() {
-        writeLock.lock();
-        try {
-            writers.decrementAndGet();
-        } finally {
-            writeLock.unlock();
-        }
+        writeSemaphore.release();
     }
-} 
+}
